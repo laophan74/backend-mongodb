@@ -1,0 +1,26 @@
+{
+  "name": "backend-mongodb",
+  "version": "1.0.0",
+  "description": "## ORM & ODM",
+  "main": "main.js",
+  "scripts": {
+    "dev": "nodemon main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/laophan74/backend-mongodb.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/laophan74/backend-mongodb/issues"
+  },
+  "homepage": "https://github.com/laophan74/backend-mongodb#readme",
+  "dependencies": {
+    "mongoose": "^6.7.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
