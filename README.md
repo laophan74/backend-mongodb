@@ -15,12 +15,14 @@ Các câu truy vấn ngắn gọn và dễ hiểu hơn
 Linh hoạt, dễ thay đổi cấu trúc  
 Dễ tái sử dụng  
 
-* *Nhược điểm*:  
-Thư viện nặng
+* *Nhược điểm:*  
+Phù hợp với truy vấn đơn giản hơn các câu truy vấn phức tạp
 
 ## Mongoose  
 
-Mongoose là một ODM. Mongoose cho phép bạn định nghĩa các object (đối tượng) với một schema được định nghĩa rõ ràng, được ánh xạ tới một MongoDB document.
+Mongoose là một ODM. Mongoose cho phép bạn định nghĩa các object (đối tượng) với một schema được định nghĩa rõ ràng, được ánh xạ tới một MongoDB Document.
+
+*Schema* xác định cấu trúc của các *Document*, nó giống như các bản ghi.
 
 Mongoose hiện có 8 SchemaTypes. Đó là:
 
@@ -32,3 +34,7 @@ Mongoose hiện có 8 SchemaTypes. Đó là:
 * Mixed
 * ObjectId
 * Array
+* Decimal128
+* Map
+
+*Model* giống như các *Document* để chứa các *Schema*, tương tự như các bảng.
