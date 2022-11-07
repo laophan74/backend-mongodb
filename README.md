@@ -38,3 +38,76 @@ Mongoose hiện có 8 SchemaTypes. Đó là:
 * Map
 
 *Model* giống như các *Document* để chứa các *Schema*, tương tự như các bảng.
+
+## Các truy vấn nâng cao
+
+* $lt – giá trị phải nhỏ hơn điều kiện
+
+* $gt – giá trị phải lớn hơn điều kiện
+
+* $lte – giá trị phải nhỏ hơn hoặc bằng điều kiện
+
+* $gte – giá trị phải lớn hơn hoặc bằng điều kiện
+
+* $in – giá trị phải nằm trong tập điều kiện
+
+* $nin – giá trị phải không nằm trong tập điều kiện
+
+* $not – giá trị không nắm trong điều kiện
+
+Để tìm tất cả user mà tuổi nhỏ hơn 20 chạy câu truy vấn sau:
+
+```javascript
+db.user.find({age: {$lt: '20'}});
+```
+
+Nếu muốn cả những user 20 tuổi nằm trong kết quả trả về thì sử dụng truy vấn như sau:
+
+```javascript
+db.user.find({age: {$lte: '20'}});
+```
+
+Nếu muốn lấy cả những user 24 tuổi thì sử dụng truy vấn $gte
+
+```javascript
+db.user.find({age: {$gte: '24'}});
+```
+
+$in giúp chúng ta tìm kiếm các documents nằm trong điều kiện cho trước. Ví dụ muốn lấy về các user có email nằm trong nhóm email sau: 'alex@gmail.com' và 'smith@gmail.com'
+
+```javascript
+db.user.find({email: {'$in': ['alex@gmail.com', 'smith@gmail.com']}});
+```
+
+* $and: trả về documents phải thỏa mãn điều kiện
+
+* $or: trả về documents thỏa mãn với 1 trong các điều kiện
+
+* $not: trả về documents phủ định với điều kiện đưa ra
+
+* $nor: trả về documents không thỏa mãn với cả 2 điều kiện
+
+Ví dụ: bạn muốn lấy ra tất cả user có giới tính là nam
+
+```javascript
+db.user.find({$and: [{gender: 'Male'}, {email: 'alex@gmail.com'}]});
+```
+
+Ví dụ: bạn muốn lấy ra user là nữ hoặc trên 18 tuổi.
+
+```javascript
+db.user.find({$or: [{gender: 'Female'}, {age: {$gt: 18}}]});
+```
+
+Ví dụ: bạn muốn lấy ra các user lớn hơn 15 tuổi. Nghĩa là lấy các user nhỏ hơn hoặc bằng 15 tuổi.
+
+```javascript
+db.user.find({age: {$not: {$gt: '15'}}});
+```
+
+Ví dụ: bạn muốn lấy ra các user không phải nữ và không lớn hơn 15 tuổi.
+
+```javascript
+db.user.find({$nor: [{gender: 'Female'}, {age: {$gt: '20'}}]});
+```
+
