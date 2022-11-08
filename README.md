@@ -111,3 +111,8 @@ Ví dụ: bạn muốn lấy ra các user không phải nữ và không lớn h�
 db.user.find({$nor: [{gender: 'Female'}, {age: {$gt: '20'}}]});
 ```
 
+## So sánh với SQL
+
+* Các trường dữ liệu trong SQL thường được biểu diễn theo bảng, gồm các cột và các dòng, các khoá liên kết với nhau chặt chẽ và cứng ngắc nên khi thay đổi một cột của bảng này có thể làm tổn hại đến bảng khác.
+
+* Dữ liệu trong MongoDB biểu diễn dưới dạng Object, gồm key và value, khi thay đổi dữ liệu của Document này thì không liên quan đến các Document khác.
