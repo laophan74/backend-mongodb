@@ -8,23 +8,15 @@
 
 * *ORM*: Hỗ trợ mapping giữa Object Model với Relational DB.
 
-* *ODM*: hỗ trợ mapping giữa Object Model với Document DB
-
-* *Ưu điểm:*  
-Các câu truy vấn ngắn gọn và dễ hiểu hơn  
-Linh hoạt, dễ thay đổi cấu trúc  
-Dễ tái sử dụng  
-
-* *Nhược điểm:*  
-Phù hợp với truy vấn đơn giản hơn các câu truy vấn phức tạp
+* *ODM*: hỗ trợ mapping giữa Object Model với Document DB.
 
 ## Mongoose  
 
 Mongoose là một ODM. Mongoose cho phép bạn định nghĩa các object (đối tượng) với một schema được định nghĩa rõ ràng, được ánh xạ tới một MongoDB Document.
 
-*Schema* xác định cấu trúc của các *Document*, nó giống như các bản ghi.
+*Schema* xác định cấu trúc của các *Document*.
 
-Mongoose hiện có 8 SchemaTypes. Đó là:
+Mongoose hiện có các SchemaTypes:
 
 * String
 * Number
@@ -37,7 +29,9 @@ Mongoose hiện có 8 SchemaTypes. Đó là:
 * Decimal128
 * Map
 
-*Model* giống như các *Document* để chứa các *Schema*, tương tự như các bảng.
+## Mongoose Query
+
+Trong file `main.js`
 
 ## Các truy vấn nâng cao
 
@@ -116,3 +110,153 @@ db.user.find({$nor: [{gender: 'Female'}, {age: {$gt: '20'}}]});
 * Các trường dữ liệu trong SQL thường được biểu diễn theo bảng, gồm các cột và các dòng, các khoá liên kết với nhau chặt chẽ và cứng ngắc nên khi thay đổi một cột của bảng này có thể làm tổn hại đến bảng khác.
 
 * Dữ liệu trong MongoDB biểu diễn dưới dạng Object, gồm key và value, khi thay đổi dữ liệu của Document này thì không liên quan đến các Document khác.
+
+## Mối quan hệ
+
+### One-to-one
+
+Mỗi Parent chỉ sở hữu 1 Child và mỗi Child chỉ sở hữu một Parent
+
+```javascript
+const Owner = new mongoose.Schema({
+    name: String
+})
+
+const houseSchema = new mongoose.Schema({
+    street: String,
+    owner: Owner
+})
+
+const House = mongoose.model("House", houseSchema)
+// Create a new house
+House.create({
+    street: "100 Maple Street",
+    owner: {name: "Alex Merced"}
+})
+```
+
+### One-to-many
+
+Mỗi Parent có thể sở hữu nhiều Children, mỗi Child chỉ sở hữu 1 Parent
+
+```javascript
+async function create() {
+  const ownerSchema = new mongoose.Schema({
+    name: String,
+  });
+
+  const Owner = mongoose.model('Owner', ownerSchema);
+
+  const houseSchema = new mongoose.Schema({
+    street: String,
+    owner: [{ type: mongoose.Types.ObjectId, ref: 'Owner' }],
+  });
+
+  const House = mongoose.model('House', houseSchema);
+
+  // Create a Owner
+  const alex = await Owner.create({ name: 'Alex Merced' });
+  const huyb = await Owner.create({ name: 'HuyB' });
+
+  // Create a new house
+  House.create({
+    street: '100 Maple Street',
+    owner: [alex, huyb],
+  });
+}
+```
+
+### Many-to-many
+
+Mỗi Parent có thể sở hữu nhiều Children, mỗi Child có thể sở hữu nhiều Parents
+
+```javascript
+Owner1: {
+    name: 'Alex',
+    house: [h1, h2]
+}
+Owner2: {
+    name: 'Huy',
+    house: [h2]
+}
+House1: {
+    street: 'h1',
+    owner: [Alex, Huy]
+}
+House2: {
+    street: 'h2',
+    owner: [Huy, Alex]
+}
+```
+
+## JSON - Java Script Object Notation
+
+JSON là một định dạng văn bản để lưu trữ và vận chuyển dữ liệu
+
+JSON thường được sử dụng khi dữ liệu được gửi từ máy chủ đến trang web
+
+*Quy tắc cú pháp JSON:*
+
+* Dữ liệu nằm trong các cặp key / value
+* Dữ liệu được phân tách bằng dấu phẩy
+* Dấu { } chứa Object
+* Dấu [ ] chứa mảng
+
+*Tại sao sử dụng JSON?*
+
+Định dạng JSON về mặt cú pháp tương tự như code để tạo các đối tượng JavaScript. Do đó, một chương trình JavaScript có thể dễ dàng chuyển đổi dữ liệu JSON thành các đối tượng JavaScript.
+
+Vì định dạng chỉ là văn bản nên dữ liệu JSON có thể dễ dàng được gửi giữa các máy tính và được sử dụng bởi bất kỳ ngôn ngữ lập trình nào.
+
+### JSON.parse
+
+Chuyển đổi các chuỗi JSON thành các đối tượng JavaScript
+
+```javascript
+const json = '{"result":true, "count":42}';
+const obj = JSON.parse(json);
+
+console.log(obj.count);
+// expected output: 42
+
+console.log(obj.result);
+// expected output: true
+```
+
+### JSON.stringify
+
+Chuyển đổi các đối tượng JavaScript thành các chuỗi JSON
+
+```javascript
+console.log(JSON.stringify({ x: 5, y: 6 }));
+// expected output: "{"x":5,"y":6}"
+
+console.log(JSON.stringify([new Number(3), new String('false'), new Boolean(false)]));
+// expected output: "[3,"false",false]"
+
+console.log(JSON.stringify({ x: [10, undefined, function(){}, Symbol('')] }));
+// expected output: "{"x":[10,null,null,null]}"
+
+console.log(JSON.stringify(new Date(2006, 0, 2, 15, 4, 5)));
+// expected output: ""2006-01-02T15:04:05.000Z""
+```
+
+## Population
+
+Population là quá trình thay thế Reference được chỉ định trong Document của một Collection bằng Document từ Collection khác.
+
+*Mongoose Query Population*
+Trong file `main.js`
+
+## Aggregation
+
+Aggregation dùng để tổng hợp các câu lệnh phức tạp xử lý một số lượng lớn Document trong một Collection bằng cách chuyển chúng qua các giai đoạn khác nhau.
+
+```javascript
+collection.aggregate([
+   { $match: { status: "A" } },// Giai đoạn 1
+   // Sau khi qua giai đoạn này, kết quả được truyền xuống giai đoạn 2 xử lí
+   
+   { $group: { _id: "$cust_id", total: { $sum: "$amount" } } }// Giai đoạn 2
+])
+```
