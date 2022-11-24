@@ -171,21 +171,15 @@ async function create() {
 Mỗi Parent có thể sở hữu nhiều Children, mỗi Child có thể sở hữu nhiều Parents
 
 ```javascript
-Owner1: {
-    name: 'Alex',
-    house: [h1, h2]
+Owner: {
+  name: 'Alex',
 }
-Owner2: {
-    name: 'Huy',
-    house: [h2]
+House: {
+  street: 'A1',
 }
-House1: {
-    street: 'h1',
-    owner: [Alex, Huy]
-}
-House2: {
-    street: 'h2',
-    owner: [Huy, Alex]
+HouseOwner: {
+  name: 'Alex',
+  street: 'A1',
 }
 ```
 

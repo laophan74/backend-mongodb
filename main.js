@@ -228,7 +228,7 @@ async function pushStory(idAuthor, title) {
   );
   console.log(result);
 }
-// pushStory('636a2c4d1e6befd044de3221', 'Nua Vang Trang');
+pushStory('636a2c4d1e6befd044de3221', 'Cuoc tinh');
 
 // NOTE - Khi không có document nào được liên kết, populate sẽ trả về null, ở đây là array nên sẽ trả về rỗng
 
@@ -274,4 +274,4 @@ async function findOne() {
   });
   console.log(a);
 }
-findOne();
+// findOne();
