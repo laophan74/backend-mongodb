@@ -17,8 +17,7 @@ async function createUseUrlController(req, res) {
         { username: req.body.username },
         { $push: { urls: Url._id } },
       );
-      console.log(user);
-      res.status(201).json('Success');
+      // res.status(201).json('Success');
     }
   } catch (error) {
     res.status(500).json('Failed to post');

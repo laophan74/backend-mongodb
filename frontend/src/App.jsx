@@ -10,7 +10,7 @@ function App() {
   const dataResult = localStorage.getItem('user')
 
   useEffect(() => {
-    const dataResult = localStorage.getItem('user')
+    // const dataResult = localStorage.getItem('user')
     if (dataResult) {
       setUser(dataResult)
       const result = async() => {
@@ -20,7 +20,7 @@ function App() {
       result()
     }
   },user)
-  console.log(data);
+
   useEffect(() => {
     const result = async() => {
       const data = await axios.get('http://localhost:8000/');
