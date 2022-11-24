@@ -2,10 +2,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const shortUrlsController = require('./controller/shortUrlsController');
-const { createUseUrlController, getUserController } = require('./controller/userController');
-const { homeClickController, homeController } = require('./controller/homeController');
-const { logInController, logOutController } = require('./controller/authController');
 const rootRoute = require('./routes');
 
 const app = express();

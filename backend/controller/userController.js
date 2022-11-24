@@ -21,7 +21,6 @@ async function createUseUrlController(req, res) {
       res.status(201).json('Success');
     }
   } catch (error) {
-    console.log(error);
     res.status(500).json('Failed to post');
   }
   res.redirect('http://localhost:3000/');

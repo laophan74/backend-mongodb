@@ -1,7 +1,6 @@
 import { Box, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography, Button, Card } from '@mui/material';
 import { Fragment, useEffect, useState } from 'react';
 import axios from 'axios'
-import './App.css';
 import Header from './components/Header';
 
 function App() {
@@ -21,6 +20,7 @@ function App() {
       result()
     }
   },user)
+  console.log(data);
   useEffect(() => {
     const result = async() => {
       const data = await axios.get('http://localhost:8000/');
