@@ -24,7 +24,7 @@ const accountSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  urls: [{ type: mongoose.Types.ObjectId, ref: 'ShortUrl' }]
+  urls: [{ type: mongoose.Types.ObjectId, ref: 'ShortUrl' }],
 });
 
 const Account = mongoose.model('Account', accountSchema);

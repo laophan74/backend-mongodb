@@ -45,6 +45,7 @@ function App() {
         full: url,
       });
     }
+    // window.location.reload();
   }
   return (
     <Box style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingLeft: '10%', paddingRight: '10%', backgroundColor: '#f9f9f9', margin: -10}}>

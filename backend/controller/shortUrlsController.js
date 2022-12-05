@@ -15,16 +15,17 @@ async function shortUrlsController(req, res) {
 async function deleteUrlsController(req, res) {
   try {
     if (req.body._id) {
-      // await ShortUrl.deleteOne({ _id: req.body._id });
+      const dUrl = await ShortUrl.findOneAndDelete({ _id: req.body._id });
       const user = await Account.findOne({ urls: req.body._id });
-      const index = user.urls.indexOf(req.body._id);
-      const urls = user.urls[0];
-      // const result = await Account.updateOne(
-      //   { _id: user._id },
-      //   { urls },
-      // );
-      res.send(`${index}`);
-      // res.status(201).json(_id);
+      if (user) {
+        const index = user.urls.indexOf(req.body._id);
+        user.urls.splice(index, 1);
+        const result = await Account.updateOne(
+          { _id: user._id },
+          { urls: user.urls },
+        );
+        res.status(200).json(result);
+      } else res.status(200).json(dUrl);
     }
   } catch (error) {
     res.status(500).json('Failed');
