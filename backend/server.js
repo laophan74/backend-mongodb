@@ -2,11 +2,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const dotenv = require('dotenv').config();
 const rootRoute = require('./routes');
 
 const app = express();
 
-mongoose.connect('mongodb+srv://laophan74:01639914061@cluster.n9czek3.mongodb.net/?retryWrites=true&w=majority');
+mongoose.connect(process.env.MONGODB_URI);
 
 app.use(cors());
 
