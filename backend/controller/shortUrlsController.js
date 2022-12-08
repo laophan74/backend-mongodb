@@ -1,15 +1,15 @@
 const { ShortUrl, Account } = require('../database/shortUrl');
 
-async function shortUrlsController(req, res) {
+async function createUrlsController(req, res) {
   try {
     if (req.body.full) {
       await ShortUrl.create({ full: req.body.full });
-      // res.status(201).json('Success');
+      res.status(201).json('Success');
     }
   } catch (error) {
     res.status(500).json('Failed');
   }
-  res.redirect('http://localhost:3000/');
+  // res.redirect('http://localhost:3000/');
 }
 
 async function deleteUrlsController(req, res) {
@@ -33,4 +33,4 @@ async function deleteUrlsController(req, res) {
   // res.redirect('http://localhost:3000/');
 }
 
-module.exports = { shortUrlsController, deleteUrlsController };
+module.exports = { createUrlsController, deleteUrlsController };
