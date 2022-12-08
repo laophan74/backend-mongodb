@@ -15,7 +15,7 @@ async function createUrlsController(req, res) {
 async function deleteUrlsController(req, res) {
   try {
     if (req.body._id) {
-      const dUrl = await ShortUrl.findOneAndDelete({ _id: req.body._id });
+      const deletedUrl = await ShortUrl.findOneAndDelete({ _id: req.body._id });
       const user = await Account.findOne({ urls: req.body._id });
       if (user) {
         const index = user.urls.indexOf(req.body._id);
@@ -24,9 +24,11 @@ async function deleteUrlsController(req, res) {
           { _id: user._id },
           { urls: user.urls },
         );
-        res.status(200).json(result);
-      } else res.status(200).json(dUrl);
+        res.status(200).json({ message: 'Url deleted, 1 Users Url deleted', deletedUrl, result });
+      }
+      res.status(200).json({ message: 'Url deleted', deletedUrl });
     }
+    res.status(500).json({ message: 'undefined Url' });
   } catch (error) {
     res.status(500).json('Failed');
   }
