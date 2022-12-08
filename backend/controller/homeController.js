@@ -2,7 +2,7 @@ const { ShortUrl } = require('../database/shortUrl');
 
 async function homeClickController(req, res) {
   try {
-    const Url = await ShortUrl.findOne({ short: req.params.id });
+    const Url = await ShortUrl.findOne({ short: req.params.id }).lean();
 
     Url.clicks += 1;
     Url.save();
@@ -14,7 +14,7 @@ async function homeClickController(req, res) {
 
 async function homeController(req, res) {
   try {
-    const shortUrls = await ShortUrl.find();
+    const shortUrls = await ShortUrl.find().lean();
     res.status(200).json(shortUrls);
   } catch (error) {
     res.status(500).json(error);

@@ -5,6 +5,6 @@ const userRoute = express.Router();
 
 userRoute.route('/userUrls').post(createUseUrlController);
 
-userRoute.route('/getUser/:id').get(getUserController);
+userRoute.route('/getUser/v1').get(getUserController);
 
 module.exports = userRoute;

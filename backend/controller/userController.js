@@ -2,7 +2,10 @@ const { Account, ShortUrl } = require('../database/shortUrl');
 
 async function getUserController(req, res) {
   try {
-    const user = await Account.findOne({ username: req.params.id }).populate('urls');
+    const user = await Account.findOne({ username: req.cookies.user })
+      .select({ password: 0 })
+      .populate('urls')
+      .lean();
     res.status(200).json({ data: user });
   } catch (error) {
     res.status(500).json(error);
